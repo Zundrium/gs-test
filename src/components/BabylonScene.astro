@@ -1,29 +1,33 @@
 <canvas id="renderCanvas"></canvas>
 
 <script>
-    import { Engine, Scene, ArcRotateCamera, Vector3, HemisphericLight, MeshBuilder } from "@babylonjs/core";
+    import { Engine, Scene, ArcRotateCamera, Vector3, SplattingTools } from "@babylonjs/core";
 
     const canvas = document.getElementById("renderCanvas") as HTMLCanvasElement;
     const engine = new Engine(canvas, true);
 
-    const createScene = () => {
+    const createScene = async () => {
         const scene = new Scene(engine);
 
-        const camera = new ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 3, new Vector3(0, 0, 0), scene);
+        const camera = new ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 10, new Vector3(0, 0, 0), scene);
         camera.attachControl(canvas, true);
+        camera.wheelPrecision = 50;
 
-        const light = new HemisphericLight("light", new Vector3(0, 1, 0), scene);
-
-        const box = MeshBuilder.CreateBox("box", {}, scene);
+        await SplattingTools.LoadFileAsync(scene, "/spz/gs-scene4.spz");
 
         return scene;
     };
 
-    const scene = createScene();
+    const main = async () => {
+        const scene = await createScene();
+        engine.runRenderLoop(() => {
+            if (scene) {
+                scene.render();
+            }
+        });
+    };
 
-    engine.runRenderLoop(() => {
-        scene.render();
-    });
+    main();
 
     window.addEventListener("resize", () => {
         engine.resize();
