@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@babylonjs/core": "^7.18.0",
     "astro": "^5.15.3"
   }
 }
