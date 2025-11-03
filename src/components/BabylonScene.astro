@@ -3,6 +3,7 @@
 <script>
 import { Engine, Scene, ArcRotateCamera, Color4, Vector3, ImportMeshAsync, UniversalCamera } from "@babylonjs/core";
 import "@babylonjs/loaders";
+import { Inspector } from '@babylonjs/inspector';
 
 const canvas = document.getElementById("renderCanvas") as HTMLCanvasElement;
 const engine = new Engine(canvas, true);
@@ -10,7 +11,7 @@ const engine = new Engine(canvas, true);
 const createScene = async () => {
 	const scene = new Scene(engine);
 
-	scene.clearColor = new Color4(0.3, 0.3, 0.3, 1);
+	scene.clearColor = new Color4(0.2, 0.15, 0.1, 1);
 
 	const camera = new UniversalCamera("camera", new Vector3(0, 0, 0), scene);
 	camera.inputs.addMouseWheel();
@@ -29,6 +30,7 @@ const createScene = async () => {
 	const gaussianSplattingMesh = result.meshes[0];	
 
 	gaussianSplattingMesh.position.y = -2;
+	Inspector.Show(scene, {});
 
 	return scene;
 };
