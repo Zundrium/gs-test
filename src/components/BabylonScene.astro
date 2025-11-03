@@ -1,35 +1,41 @@
 <canvas id="renderCanvas"></canvas>
 
 <script>
-    import { Engine, Scene, ArcRotateCamera, Vector3, SplattingTools } from "@babylonjs/core";
+import { Engine, Scene, ArcRotateCamera, Color4, Vector3, ImportMeshAsync } from "@babylonjs/core";
+import "@babylonjs/loaders";
 
-    const canvas = document.getElementById("renderCanvas") as HTMLCanvasElement;
-    const engine = new Engine(canvas, true);
+const canvas = document.getElementById("renderCanvas") as HTMLCanvasElement;
+const engine = new Engine(canvas, true);
 
-    const createScene = async () => {
-        const scene = new Scene(engine);
+const createScene = async () => {
+	const scene = new Scene(engine);
+	scene.clearColor = new Color4(0.3, 0.3, 0.3, 1);
 
-        const camera = new ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 10, new Vector3(0, 0, 0), scene);
-        camera.attachControl(canvas, true);
-        camera.wheelPrecision = 50;
+	const camera = new ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 10, new Vector3(0, 0, 0), scene);
+	camera.attachControl(canvas, true);
+	camera.wheelPrecision = 50;
 
-        await SplattingTools.LoadFileAsync(scene, "/spz/gs-scene4.spz");
+	const result = await ImportMeshAsync("spz/gs-scene4_2.spz", scene);
+	const gaussianSplattingMesh = result.meshes[0];	
 
-        return scene;
-    };
+	gaussianSplattingMesh.rotation.x = Math.PI;
+	gaussianSplattingMesh.position.y = -2;
 
-    const main = async () => {
-        const scene = await createScene();
-        engine.runRenderLoop(() => {
-            if (scene) {
-                scene.render();
-            }
-        });
-    };
+	return scene;
+};
 
-    main();
+const main = async () => {
+	const scene = await createScene();
+	engine.runRenderLoop(() => {
+		if (scene) {
+			scene.render();
+		}
+	});
+};
 
-    window.addEventListener("resize", () => {
-        engine.resize();
-    });
+main();
+
+window.addEventListener("resize", () => {
+	engine.resize();
+});
 </script>

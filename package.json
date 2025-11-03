@@ -1,15 +1,16 @@
 {
-  "name": "gs-test",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@babylonjs/core": "^7.18.0",
-    "astro": "^5.15.3"
-  }
+	"name": "gs-test",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@babylonjs/core": "^8.34.0",
+		"@babylonjs/loaders": "^8.34.0",
+		"astro": "^5.15.3"
+	}
 }
