@@ -6,8 +6,8 @@ import { Scene } from "@babylonjs/core/scene";
 import { UniversalCamera } from "@babylonjs/core/Cameras/universalCamera";
 import { Vector3 } from "@babylonjs/core/Maths/math.vector";
 import { Color4 } from "@babylonjs/core/Maths/math.color";
-import { ImportMeshAsync } from "@babylonjs/core/Meshes/mesh";
-import "@babylonjs/loaders/";
+import { ImportMeshAsync } from "@babylonjs/core/Loading/sceneLoader";   
+import "@babylonjs/loaders/SPLAT/splatFileLoader";
 
 //import { Inspector } from '@babylonjs/inspector';
 
@@ -37,8 +37,6 @@ const createScene = async () => {
 
 	const result = await ImportMeshAsync("/sog/scene5.sog", scene);
 	const gaussianSplattingMesh = result.meshes[0];
-
-	console.log(gaussianSplattingMesh.material);
 
 	gaussianSplattingMesh.position.y = -2;
 	//Inspector.Show(scene, {});
