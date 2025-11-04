@@ -35,7 +35,7 @@ const createScene = async () => {
 	camera.position = new Vector3(7.15, 1.75, 8.94);
 	camera.attachControl(canvas, true);
 
-	const result = await ImportMeshAsync("/sog/scene5.sog", scene);
+	const result = await ImportMeshAsync("/sog/scene5_500k.sog", scene);
 	const gaussianSplattingMesh = result.meshes[0];
 
 	gaussianSplattingMesh.position.y = -2;
