@@ -24,8 +24,8 @@ export function applySplatWave(mesh: GaussianSplattingMesh, scene: Scene) {
             uniform vec3 uWaveParams; // x: amplitude, y: frequency, z: speed
         ` +
 			vs.replace(
-				"vec3 center = readCenter(splatIndex);",
-				`vec3 center = readCenter(splatIndex);
+				/vec3 center = readCenter\(splatIndex\);/,
+				`$&
              float noise = texture(uNoiseTexture, center.xz * uWaveParams.y).r;
              center.y += sin(noise * 6.28318 + uTime * uWaveParams.z) * uWaveParams.x;
             `,
