@@ -1,8 +1,9 @@
 <canvas id="renderCanvas"></canvas>
 
 <script>
-import { Engine, Scene, ArcRotateCamera, Color4, Vector3, ImportMeshAsync, UniversalCamera, Camera } from "@babylonjs/core";
+import { Engine, Scene, ArcRotateCamera, Color4, Vector3, ImportMeshAsync, UniversalCamera, Camera, Effect } from "@babylonjs/core";
 import "@babylonjs/loaders";
+import { applySplatWave } from "./splatWaveMaterial.ts";
 //import { Inspector } from '@babylonjs/inspector';
 
 const canvas = document.getElementById("renderCanvas") as HTMLCanvasElement;
@@ -31,6 +32,7 @@ const createScene = async () => {
 
 	const result = await ImportMeshAsync("sog/scene4.sog", scene);
 	const gaussianSplattingMesh = result.meshes[0];
+	applySplatWave(gaussianSplattingMesh, scene);
 
 	gaussianSplattingMesh.position.y = -2;
 	//Inspector.Show(scene, {});
